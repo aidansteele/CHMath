@@ -42,6 +42,13 @@
 + (id)number;
 
 /**
+ Creates an autoreleased CHNumber initialized to the value of the arbitrarily large @a number
+ @param data an NSData that contains an arbitrarily large big-endian unsigned integer value
+ @return a new CHNumber, or @a nil if an integer cannot be extracted from @a number.
+ */
++ (id)numberWithBigEndianData:(NSData *)data;
+
+/**
  Creates an autoreleased CHNumber initialized to @a integer.
  @param integer the integer value of the new number
  @return a new CHNumber, or @a nil if an error occurs
@@ -111,6 +118,13 @@
  @return a new CHNumber, or @a nil if an integer cannot be extracted from @a number.
  */
 - (id)initWithNumber:(NSNumber *)number;
+
+/**
+ Creates a new CHNumber initialized to the value of the arbitrarily large @a number
+ @param data an NSData that contains an arbitrarily large big-endian unsigned integer value
+ @return a new CHNumber, or @a nil if an integer cannot be extracted from @a number.
+ */
+- (id)initWithBigEndianData:(NSData *)data;
 
 #pragma mark Behavior
 

@@ -54,6 +54,10 @@
 	return [[[self alloc] initWithNumber:number] autorelease];
 }
 
++ (id)numberWithBigEndianData:(NSData *)data {
+	return [[[self alloc] initWithBigEndianData:number] autorelease];
+}
+
 + (id)number {
 	return [[[self alloc] initWithInteger:0] autorelease];
 }
@@ -121,6 +125,24 @@
 
 - (id)initWithNumber:(NSNumber *)number {
 	return [self initWithString:[number descriptionWithLocale:[NSLocale currentLocale]]];
+}
+
+- (id)initWithBigEndianData:(NSData *)data {
+    if ((self = [super init])) {
+        bigNumber = BN_bin2bn([data bytes], [data length], NULL);
+        if (bigNumber == NULL) {
+            [self release];
+            return nil;
+        }
+        context = BN_CTX_new();
+        if(context == NULL) {
+			BN_free(bigNumber);
+			[self release];
+			return nil;
+		}
+    }
+    
+    return self;
 }
 
 - (void) dealloc {
@@ -270,7 +292,7 @@
 	if ([object isKindOfClass:[self class]]) {
 		return [self isEqualToNumber:(CHNumber *)object];
 	} else {
-		return [super isEqualTo:object];
+		return NO;
 	}
 }
 
