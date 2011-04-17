@@ -172,7 +172,7 @@
 	BOOL shouldFlip = NO;
 	NSUInteger totalBufferSize = numBits + 1;
 	unsigned char * string = malloc(totalBufferSize * sizeof(unsigned char));
-	string[totalBufferSize] = '\0';
+	string[totalBufferSize - 1] = '\0';
 	for (int i = 0; i < numBits; ++i) {
 		int idx = totalBufferSize - i - 1;
 		int bit = BN_is_bit_set([self bigNumber], i);
